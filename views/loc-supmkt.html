@@ -1,0 +1,30 @@
+<md-list-item>
+    <md-icon md-svg-icon="../img/supermarket.svg"></md-icon>
+    <p>附近有超市</p>
+    <md-switch class="md-primary" ng-model="loc_sel.spms"></md-switch>
+</md-list-item>
+<md-content ng-show="loc_sel.spms" layout-margin>
+    <div layout="column" layout-margin layout-fill>  
+          <div layout="row"> 
+              <md-input-container class="md-block" flex="50">
+                  <label>超市</label>
+                  <md-select ng-model="loc_sel.userSpm">
+                    <md-option><em>请选择</em></md-option>
+                    <md-option ng-repeat="spm in spms" ng-value="spm.abbrev" >
+                      {{spm.abbrev}}
+                    </md-option>
+                  </md-select>                    
+              </md-input-container>              
+              <md-input-container class="md-block" flex="50">
+                  <label>距离</label>
+                  <md-select ng-model="loc_sel.userSpmDis">
+                    <md-option><em>请选择</em></md-option>
+                    <md-option ng-repeat="dis in distances" ng-value="dis.abbrev" >
+                      {{dis.abbrev}}
+                    </md-option>
+                  </md-select>                    
+              </md-input-container>
+          </div>
+    </div>
+</md-content>
+<md-divider></md-divider>

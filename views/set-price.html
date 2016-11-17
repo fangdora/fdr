@@ -1,0 +1,35 @@
+<md-list-item >
+    <md-icon md-svg-icon="../img/price.svg"></md-icon>
+    <p>价格范围</p>
+    <md-switch class="md-primary" ng-model="loc_sel.price"></md-switch>
+</md-list-item>
+<md-content ng-show="loc_sel.price" layout-margin>
+    <div layout="column" layout-margin layout-fill>  
+          <div layout="row">              
+              <md-input-container class="md-block" flex="30">
+                  <label>均价</label>
+                  <md-select ng-model="loc_sel.userPrice" md-on-close="setPrice()">
+                    <md-option><em>请选择</em></md-option>
+                    <md-option ng-repeat="price in prices" ng-value="price.abbrev" >
+                      {{price.abbrev}}
+                    </md-option>
+                  </md-select>                    
+              </md-input-container>
+              <md-input-container class="md-block" flex="10">
+                                  
+              </md-input-container>              
+              <md-input-container class="md-block" flex="30">
+                  <label>元/平方米</label>
+                  <input type="number" ng-model="loc_sel.price_from" ng-disabled="loc_sel.price_from_dis" > 
+              </md-input-container>
+              <md-input-container class="md-block" flex="5" >
+                  <label>至</label>              
+              </md-input-container>
+              <md-input-container class="md-block" flex="30">
+                  <label>元/平方米</label>
+                  <input type="number" ng-model="loc_sel.price_to" ng-disabled="loc_sel.price_to_dis" >
+              </md-input-container>
+          </div>          
+    </div>
+</md-content>
+<md-divider></md-divider>

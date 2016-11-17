@@ -1,0 +1,47 @@
+<!-- form.html -->
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
+ 
+    <div id="form-container" >
+ 
+        <div class="page-header text-center">
+            <h3>基于兴趣的智能搜房！</h3>
+             
+            <!-- the links to our nested states using relative paths -->
+            <!-- add the active class if the state matches our ui-sref -->
+            
+        </div>
+         
+        <md-whiteframe class="md-whiteframe-6dp" layout layout-align="center center">
+            <md-list flex ng-cloak>  
+                <div ng-include="'views/loc-region.html'"></div>  
+                <div ng-include="'views/loc-metro.html'"></div>  
+                <div ng-include="'views/loc-supmkt.html'"></div>
+                <div ng-include="'views/loc-school.html'"></div>   
+                <div ng-include="'views/set-price.html'"></div>
+                <section layout="row" layout-align="center center" layout-wrap>                  
+                  <md-button class="md-raised md-primary" ng-click="robotSearch()">智能搜索</md-button>
+                  <md-button class="md-raised md-primary" ng-click="reset()">清空条件</md-button>                  
+                </section>
+            </md-list>
+            
+        </md-whiteframe>
+ 
+    </div>
+    <div >
+        <div ng-include="'views/result.html'" ng-show="resultShow"></div>
+    </div>
+ 
+    <!-- show our formData as it is being typed 
+    <pre>
+        地铁：{{ loc_sel.metro }},{{loc_sel.userMetro}},{{loc_sel.userMetroDis}}
+        区域：{{ loc_sel.region }},{{loc_sel.userRegion}}
+        超市：{{ loc_sel.spms }},{{loc_sel.userSpm}},{{loc_sel.userSpmDis}}
+        学区：{{ loc_sel.school }},{{loc_sel.userXx}},{{loc_sel.userCz}}
+        价格：{{ loc_sel.price }},{{loc_sel.userPrice}}
+       
+    </pre>  -->
+ 
+ 
+</div>
+</div>

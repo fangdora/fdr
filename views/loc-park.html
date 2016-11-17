@@ -1,0 +1,36 @@
+<md-list-item >
+    <md-icon md-svg-icon="../img/park.svg"></md-icon>
+    <p>附近有公园</p>
+    <md-switch class="md-secondary" ng-model="s1"></md-switch>
+</md-list-item>
+<md-content ng-show="s1" layout-margin>
+    <div layout="column" layout-margin layout-fill>  
+          <div layout="row">
+              <div flex="10">
+                  <md-label>小学：</md-label>
+              </div>
+              <div flex="90" layout="row" >
+                  <md-radio-group ng-model="metro_xl" layout="row" class="md-primary" ng-click="searchFxResult()" > 
+                      <md-radio-button value="1号线">1号线</md-radio-button>
+                      <md-radio-button value="2号线">2号线</md-radio-button>
+                      <md-radio-button value="4号线">4号线</md-radio-button>
+                      <md-radio-button value="5号线">5号线</md-radio-button>
+                      <md-radio-button value="11号线">11号线</md-radio-button>
+                  </md-radio-group>   
+              </div>
+          </div>
+          <div layout="row">
+              <div flex="10">
+                  <md-label>初中：</md-label>
+              </div>
+              <div flex="90" layout="row" >
+                  <md-radio-group ng-model="metro_jl" layout="row" class="md-primary" ng-click="searchFxResult()"> 
+                     <md-radio-button value="3">步行3分钟内</md-radio-button>
+                      <md-radio-button value="5">步行5分钟内</md-radio-button>
+                      <md-radio-button value="10">步行10分钟内</md-radio-button>   
+                  </md-radio-group>   
+              </div>
+          </div>  
+    </div>
+</md-content>
+<md-divider></md-divider>

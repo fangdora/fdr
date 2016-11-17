@@ -1,0 +1,28 @@
+<div class="col-sm-10 col-sm-offset-1">    
+    <md-whiteframe class="md-whiteframe-6dp" layout="column" layout-padding>
+        <form name="contactForm" novalidate ng-submit="sendFeedback($event)">        
+            <div layout-gt-xs="row" >
+                <md-input-container flex-gt-xs>
+                    <label>尊姓大名</label>
+                    <input id="fullname" name="fullname" class="form-control" ng-model="feedback.fullname" required >                    
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>邮箱</label>
+                    <input type="email" name="email" ng-model="feedback.email" required>
+                </md-input-container>
+            </div>   
+            <div layout-gt-xs="row" >
+                <md-input-container flex-gt-xs class="md-block">
+                    <label>您的建议</label>
+                    <textarea name="advise" ng-model="feedback.content" rows="5" md-maxlength="500"  md-select-on-focus></textarea>
+                </md-input-container>         
+            </div>
+            <div layout-gt-xs="row" layout-align="end end">
+                <md-button type="submit" class="md-raised md-primary" ng-disabled="contactForm.$invalid">提交</md-button>
+            </div>            
+        </form>
+        <div class="alert alert-success" role="alert">您也可以发邮件至fangdora@126.com与我们联系。</div>
+    </md-whiteframe>        
+</div>
+
+

@@ -1,0 +1,21 @@
+<md-list-item >
+    <md-icon md-svg-icon="../img/region.svg"></md-icon>
+    <p>所在区域</p>
+    <md-switch class="md-primary" ng-model="loc_sel.region"></md-switch>
+</md-list-item>
+<md-content ng-show="loc_sel.region" layout-margin>
+    <div layout="column" layout-margin layout-fill>  
+          <div layout="row">              
+              <md-input-container class="md-block" flex="50">
+                  <label>区域</label>
+                  <md-select ng-model="loc_sel.userRegion">
+                    <md-option><em>请选择</em></md-option>
+                    <md-option ng-repeat="region in regions" ng-value="region.abbrev" >
+                      {{region.abbrev}}
+                    </md-option>
+                  </md-select>                    
+              </md-input-container>                
+          </div>          
+    </div>
+</md-content>
+<md-divider></md-divider>

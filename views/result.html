@@ -1,0 +1,33 @@
+<md-whiteframe class="md-whiteframe-6dp" layout="column" ng-cloak >
+    <md-content>
+        <md-list flex="100">
+            <md-subheader class="md-no-sticky">查询结果</md-subheader>
+            <md-divider ng-if="!$last"></md-divider>
+            <md-list-item class="md-2-line" layout-padding ng-repeat="region in subRegions" ng-click="null">
+                <img class="img-thumbnail"  ng-src="{{ '/img/xq_img/' + region.img}}" alt="">
+                <div flex="5"></div>
+                <div flex="60" class="md-list-item-text" layout="column">
+                    <div layout="row" >
+                        <h3>{{region.xqmc}}</h3>                    
+                    </div>
+                    <div layout="row">
+                        <small>{{region.xzq}} | {{region.pq}}</small>
+                    </div>
+                    <div layout="row">
+                        <p ng-model="zjdt" ng-show="loc_sel.metro">最近地铁站：{{region.dtmc}}，步行{{region.dtsj}}分钟&emsp;</p>                       
+                    </div>
+                    <div layout="row">
+                        <p ng-model="zjcs" ng-show="loc_sel.spms">最近超市：{{region.cspp}}，步行{{region.cssj}}分钟</p> 
+                    </div>
+
+                </div>            
+                <div flex="20" class="md-list-item-text" layout-align="end end">
+                    <h5 class="unitPrice">{{region.junjia}}<small>元/平米</small></h5>               
+                </div>            
+                <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+        </md-list>     
+        <ul uib-pagination boundary-links="true" total-items="totalItems" boundary-link-numbers="true" max-size="maxSize" num-pages="numPages" ng-model="currentPage" ng-change="pageChanged(currentPage)" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页" class="md-primary"></ul>   
+    </md-content>
+    
+</md-whiteframe>

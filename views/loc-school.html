@@ -1,0 +1,24 @@
+<md-list-item >
+    <md-icon md-svg-icon="../img/school.svg"></md-icon>
+    <p>属于学区房</p>
+    <md-switch class="md-primary" ng-model="loc_sel.school"></md-switch>
+</md-list-item>
+<md-content ng-show="loc_sel.school" layout-margin>
+    <div layout="column" layout-margin layout-fill>  
+          <div layout="row">
+              <div flex="10">
+                  <md-label>小学：</md-label>
+              </div>
+              <md-checkbox flex="20" class="md-primary" ng-model="loc_sel.userXx">
+                  优质学位房
+              </md-checkbox> 
+              <div flex="10">
+                  <md-label>初中：</md-label>
+              </div>
+              <md-checkbox class="md-primary" ng-model="loc_sel.userCz">
+                  优质学位房
+              </md-checkbox>
+          </div>           
+    </div>
+</md-content>
+<md-divider></md-divider>
