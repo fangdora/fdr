@@ -1,121 +1,39 @@
-<md-whiteframe class="md-whiteframe-6dp"  layout layout-align="center center">                
+<div class="container" ng-controller="SearchController" >
+    <br>
+    <br>
     <div class="row">
-        <div class="col-sm-12">
-          <br>
-          <div class="input-group">
-              <input type="text" ng-model="xqName" class="form-control" placeholder="请输入小区名称">
-              <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" ng-click="searchXq()">
-                      <span class="glyphicon glyphicon-search"></span>
-                  </button>
-              </span>
-          </div>
+        <div class="col-sm-10 col-sm-offset-1">
+            <div id="form-container" >
+                <div class="page-header text-center" layout="row" flex>
+                   <section layout="row" layout-wrap layout-padding flex="80">
+                        <div class="input-group">                  
+                            <input type="text" class="form-control" ng-model="xqName" placeholder="小区名称">
+                            <span class="input-group-btn">                    
+                                <button class="btn btn-primary" type="button" ng-click="searchXq()">搜索</button>
+                            </span>                
+                        </div>
+                    </section>  
+                    <section layout="row" layout-wrap layout-padding flex="20">
+                        <span class="input-group-btn">                    
+                            <button class="btn btn-danger flashButton" type="button" ng-click="openLocSearch()">开启智能搜索</button>                         
+                        </span>
+                    </section>
+                </div>
+            </div>
+            <div >
+                <div ng-include="'views/result.html'"></div>
+            </div>     
         </div>
-        <div class="col-sm-12"> 
-            <br>
-              <div layout="column" ng-cloak>
-                  <md-toolbar class="md-primary">
-                      <div class="md-toolbar-tools">
-                          <h2 class="md-flex">搜索条件</h2>
-                      </div>
-                  </md-toolbar>
-                  <md-content flex layout-padding>
-                      <fieldset >                                      
-                          <div layout="column" layout-margin>  
-                              <div layout="row">
-                                  <div flex="10">
-                                      <md-label>地铁线路：</md-label>
-                                  </div>
-                                  <div flex="90" layout="row" >
-                                      <md-radio-group ng-model="metro_xl" layout="row" class="md-primary" ng-click="searchFxResult()" > 
-                                          <md-radio-button value="1号线">1号线</md-radio-button>
-                                          <md-radio-button value="2号线">2号线</md-radio-button>
-                                          <md-radio-button value="4号线">4号线</md-radio-button>
-                                          <md-radio-button value="5号线">5号线</md-radio-button>
-                                          <md-radio-button value="11号线">11号线</md-radio-button>
-                                      </md-radio-group>   
-                                  </div>
-                              </div>
-
-                              <div layout="row">
-                                  <div flex="10">
-                                      <md-label>距地铁站：</md-label>
-                                  </div>
-                                  <div flex="90" layout="row" >
-                                      <md-radio-group ng-model="metro_jl" layout="row" class="md-primary" ng-click="searchFxResult()"> 
-                                         <md-radio-button value="3">步行3分钟内</md-radio-button>
-                                          <md-radio-button value="5">步行5分钟内</md-radio-button>
-                                          <md-radio-button value="10">步行10分钟内</md-radio-button>   
-                                      </md-radio-group>   
-                                  </div>
-                              </div>                                                                             
-                              <md-divider ng-if="!$last"></md-divider>
-                              <div layout="row">
-                                  <div flex="10">
-                                      <md-label>超市名称：</md-label>
-                                  </div>
-                                  <div flex="90" layout="row">
-                                      <md-radio-group ng-model="cs_pp" layout="row" class="md-primary" ng-click="searchFxResult()">                                              
-                                          <md-radio-button value="">不限</md-radio-button>
-                                          <md-radio-button value="沃尔玛">沃尔玛</md-radio-button>
-                                          <md-radio-button value="家乐福">家乐福</md-radio-button>
-                                          <md-radio-button value="AEON">永旺</md-radio-button>
-                                          <md-radio-button value="华润万家">华润万家</md-radio-button>
-                                          <md-radio-button value="天虹">天虹</md-radio-button>
-                                          <md-radio-button value="岁宝">岁宝</md-radio-button>
-                                          <md-radio-button value="新一佳">新一佳</md-radio-button>
-                                          <md-radio-button value="人人乐">人人乐</md-radio-button>
-                                          <md-radio-button value="百佳">百佳</md-radio-button>
-                                      </md-radio-group>                                      
-                                  </div>
-                              </div>
-
-                              <div layout="row">
-                                  <div flex="10">
-                                      <md-label>距超市：</md-label>
-                                  </div>
-                                  <div flex="90" layout="row">
-                                      <md-radio-group ng-model="cs_jl" layout="row" class="md-primary" ng-click="searchFxResult()">                                              
-                                          <md-radio-button value="3">步行3分钟内</md-radio-button>
-                                          <md-radio-button value="5">步行5分钟内</md-radio-button>
-                                          <md-radio-button value="10">步行10分钟内</md-radio-button>                                              
-                                      </md-radio-group> 
-                                  </div>
-                              </div>                                          
-                          </div>                                      
-                      </fieldset>   
-                      {{s}}
-                  </md-content>
-              </div>             
-          </div>
-      </div>                
-</md-whiteframe>
-<md-whiteframe class="md-whiteframe-6dp" layout="column" ng-cloak  layout-align="center center">
-    <div class="col-sm-12">
-        <md-list flex>
-            <md-subheader class="md-no-sticky">查询结果</md-subheader>
-            <md-divider ng-if="!$last"></md-divider>
-            <md-list-item class="md-4-line xq-border" ng-repeat="region in subRegions" ng-click="null">
-                <div class="col-sm-2">
-                    <img class="media-object img-thumbnail"  ng-src="images/p1.jpg">
-                </div>
-                <div class="col-sm-8">
-                    <div class="md-list-item-text" layout="column">                                                           
-                        <h3>{{region.xqmc}}</h3>
-                        <h4>{{region.xzq}} | {{region.pq}}</h4>                                
-                        <p ng-model="ptstr" ng-show="ptstr">最近地铁站：{{region.dtmc}}，距离：<span class="label label-danger">{{region.dtjl}}米</span>,步行<span class="label label-danger">{{region.dtsj}}分钟</span> | 超市：{{region.csmc}}, 最近距离：<span class="label label-danger">{{region.csjl}}米</span>, 步行<span class="label label-danger">{{region.cssj}}分钟</span>
-                        </p>                                   
-                    </div>
-                </div>
-                <div class="col-sm-2 text-right">                                
-                    <h4>60000元/平方米</h4>
-                    <h5>22套</h5>                                    
-                </div>        
-                <md-divider ng-if="!$last"></md-divider>
-            </md-list-item>
-        </md-list>
     </div>
+    <md-sidenav md-theme="altTheme" class="md-sidenav-left" md-component-id="left" md-disable-backdrop md-whiteframe="6" is-locked-open="$mdMedia('sm')" flex>
+        <br>
+        <br>
+        <md-toolbar class="md-primary">
+            <h1 class="md-toolbar-tools">搜索条件</h1>
+        </md-toolbar>
+        <md-content>
+            <div ng-include="'views/loc.html'"></div>                    
+        </md-content>
+    </md-sidenav>            
+</div>
 
-    <ul uib-pagination boundary-links="true" total-items="totalItems" boundary-link-numbers="true" max-size="maxSize" num-pages="numPages" ng-model="currentPage" ng-change="pageChanged()" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></ul>   
-          <p>{{xqName}}</p>
-</md-whiteframe>

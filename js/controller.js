@@ -1,59 +1,88 @@
-'use strict';
 
 var app = angular.module('myApp');
-app.controller('SearchController',['$scope','xqSearch','$mdToast',function($scope,xqSearch,$mdToast){                
+app.controller('SearchController',['$scope','xqSearch','mapservice','$mdToast','$anchorScroll','$location','$mdDialog','$mdSidenav',function($scope,xqSearch,mapservice,$mdToast,$anchorScroll,$location,$mdDialog,$mdSidenav){                
     
     $scope.ptstr = false;
-    $scope.resultShow = false;
+    //$scope.resultShow = false;
     var regions = [];
-    /**
-    xqSearch.searchXqbyName('xqmc=桃园')
+    $scope.noResult = false;
+    $scope.wait = false;
+    //初始化查询小区
+    $scope.wait = true;
+    xqSearch.searchXqbyName("xqmc=")
     .then(
         function(response){
-            regions = response.data;  
-            refreshPages();
+            regions = response.data;                
+            refreshPages();   
+            $scope.wait = false;
         }
-    );
-    **/
+    ); 
+    
+    
+     function gotoResult(){
+        $location.hash('result');
+        //anchorSmoothScroll.scrollTo('result');
+        $anchorScroll();
+    };
+    
     
     $scope.setPage = function (pageNo) {
-        //$scope.currentPage = pageNo;
-        var start  = ($scope.currentPage-1)*10;
-        var end = start + 10;
-        $scope.subRegions = regions.slice(start,end);
-    };
+        $scope.pg.currentPage = pageNo;
+        //var start  = ($scope.currentPage-1)*10;
+        //var end = start + 10;
+        //$scope.subRegions = regions.slice(start,end);
+    };   
 
     $scope.pageChanged = function(num) {
         //$log.log('Page changed to: ' + $scope.currentPage);
         var start  = (num-1)*10;
         var end = start + 10;
-        $scope.subRegions = regions.slice(start,end);
-        $scope.str = num;
+        $scope.subRegions = regions.slice(start,end);        
     };   
     
-    var refreshPages = function(){
-        $scope.totalItems = regions.length;
-        $scope.currentPage = 1;
-        $scope.maxSize = 5 ;
-        $scope.numPages = $scope.maxSize;
-        $scope.d = $scope.numPages;                    
-        var start  = ($scope.currentPage-1)*10;
-        var end = start + 10;
-        $scope.subRegions = regions.slice(start,end);        
+    $scope.pg = {
+        currentPage:1,
+        totalItems:0,
+        maxSize:5,
+        numPages:1
+    };
+    
+    function refreshPages(){
+        $scope.pg.totalItems = regions.length;        
+        $scope.pg.maxSize = 5 ;
+        $scope.pg.currentPage = 1;        
+        //$scope.numPages = $scope.maxSize;                    
+        var start  = ($scope.pg.currentPage-1)*10;
+        var end = start + 10;        
+        //$scope.setPage(1);
+        $scope.subRegions = regions.slice(start,end);    
+        
     }
 
     $scope.searchXq = function(){
         //regions = xqSearch.searchXqbyName($scope.xqName); 
-        xqSearch.searchXqbyName("xqmc=" + $scope.xqName)
+        $scope.wait = true;
+        var xq = "";
+        if($scope.xqName != "undefined" && $scope.xqName != null){
+            xq = $scope.xqName;
+        }
+        xqSearch.searchXqbyName("xqmc=" + xq)
         .then(
             function(response){
                 regions = response.data;                
                 refreshPages();   
+                $scope.wait = false;
+                $scope.reset();
             }
         );       
              
     };
     
+    $scope.openLocSearch = function(){
+        
+        $mdSidenav('left').toggle();
+        
+    };
     
     $scope.loc_sel = {
         metro:false,
@@ -79,11 +108,11 @@ app.controller('SearchController',['$scope','xqSearch','$mdToast',function($scop
         
     $scope.spms = ('沃尔玛 家乐福 永旺 华润万家 山姆 新一佳').split(' ').map(function (spm) { return { abbrev: spm }; });
         
-    $scope.distances = ('步行3分钟内 步行5分钟内 步行10分钟内').split(' ').map(function (dis) { return { abbrev: dis }; });    
+    $scope.distances = ('步行5分钟内 步行10分钟内 步行15分钟内').split(' ').map(function (dis) { return { abbrev: dis }; });    
    
     $scope.regions = ('罗湖区 福田区 南山区 盐田区 宝安区 龙岗区 龙华区 坪山区 大鹏新区 光明新区').split(' ').map(function (region) { return { abbrev: region }; });
         
-    $scope.metros = ('1号线 2号线 3号线 4号线 5号线 11号线').split(' ').map(function (metro) { return { abbrev: metro }; });
+    $scope.metros = ('1号线 2号线 3号线 4号线 5号线 7号线 9号线 11号线').split(' ').map(function (metro) { return { abbrev: metro }; });
     
     $scope.prices = ('0-30000 30000-50000 50000-70000 70000-100000 100000-1000000 自定义').split(' ').map(function (price) { return { abbrev: price }; });
     
@@ -194,6 +223,11 @@ app.controller('SearchController',['$scope','xqSearch','$mdToast',function($scop
     };
     
     $scope.robotSearch = function(){
+        
+        $scope.wait = true;
+        $scope.noResult = false;
+        //$scope.resultShow = true;
+        
         if(!checkParameters()){
             return;
         }
@@ -282,11 +316,74 @@ app.controller('SearchController',['$scope','xqSearch','$mdToast',function($scop
         xqSearch.searchXqbyFacility(query)
         .then(
             function(response){
-                regions = response.data;  
-                refreshPages();
+                regions = response.data;
+                if(regions.length == 0){
+                    $scope.noResult = true;
+                }                
+                $scope.wait = false;                
+                refreshPages(); 
+                //gotoResult();
             }
         );
-        $scope.resultShow = true;
+        
+    };
+    
+    function DialogController($scope, $mdDialog,xqdetail) {
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+
+        $scope.answer = function(answer) {
+          $mdDialog.hide(answer);
+        };
+        
+        $scope.para = {
+            dtshow:true,
+            csshow:true
+        };
+        
+        xqdetail.dtk ? $scope.para.dtshow = true: $scope.para.dtshow = false;
+        xqdetail.csmc ? $scope.para.csshow = true: $scope.para.csshow = false;       
+        
+        $scope.xqdetail = xqdetail;
+    };
+    
+    $scope.showDetail = function(region,ev) {
+        //get xq detail infomation
+        var xqdetail = {};
+        xqSearch.searchXqDetail('xqbh=' + region.xqbh)
+        .then(
+            function(response){
+                xqdetail = response.data[0];
+                
+                $mdDialog.show({
+                  controller: DialogController,
+                  templateUrl: 'views/detail-dialog.tmpl.html',
+                  parent: angular.element(document.body),
+                  targetEvent: ev,
+                  onComplete:showMap,
+                  clickOutsideToClose:true,
+                    locals:{
+                        xqdetail:xqdetail
+                    }
+                })
+                .then(function(answer) {
+                  $scope.status = 'You said the information was "' + answer + '".';
+                }, function() {
+                  $scope.status = 'You cancelled the dialog.';
+                });
+                
+                function showMap(){
+                    mapservice.initMap('mapcontent',xqdetail);//创建和初始化地图
+                    mapservice.addCustomFacility(xqdetail);
+                };
+            }
+        );
+        
     };
 
 }]);

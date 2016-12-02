@@ -5,20 +5,16 @@
 </md-list-item>
 <md-content ng-show="loc_sel.school" layout-margin>
     <div layout="column" layout-margin layout-fill>  
-          <div layout="row">
-              <div flex="10">
-                  <md-label>小学：</md-label>
-              </div>
-              <md-checkbox flex="20" class="md-primary" ng-model="loc_sel.userXx">
-                  优质学位房
-              </md-checkbox> 
-              <div flex="10">
-                  <md-label>初中：</md-label>
-              </div>
-              <md-checkbox class="md-primary" ng-model="loc_sel.userCz">
-                  优质学位房
-              </md-checkbox>
+          <div layout="row">              
+              <md-checkbox class="md-primary" ng-model="loc_sel.userXx">
+                  优质小学学位
+              </md-checkbox>               
           </div>           
+        <div layout="row">            
+              <md-checkbox class="md-primary" ng-model="loc_sel.userCz">
+                  优质初中学位
+              </md-checkbox>
+        </div>
     </div>
 </md-content>
 <md-divider></md-divider>

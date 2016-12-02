@@ -1,0 +1,35 @@
+<md-dialog aria-label="Detail">
+  <form>
+    
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+        <div layout="column" style="padding:10px">
+            <div layout="row">
+                <div layout="row" flex="40">
+                    <h4>{{xqdetail.xqmc}}&emsp;<small>{{xqdetail.xzq}} | {{xqdetail.pq}}</small></h4>
+                </div>
+        <!--        <div layout="row" flex="60" layout-align="end end">
+                    <div layout="row" >
+                        <p>链家房源：<a>13套</a>&emsp;|&emsp;</p>
+                    </div>
+                    <div layout="row" >
+                        <p>中原房源：13套&emsp;|&emsp;</p>
+                    </div>
+                    <div layout="row" >
+                        <p>Q房房源：13套&emsp;|&emsp;</p>
+                    </div>
+                </div>  -->
+            </div>
+            <div  layout="row">
+                <p ng-show="para.dtshow">最近地铁站：{{xqdetail.dtk}}，步行{{xqdetail.dtsj}}分钟&emsp;</p>
+                <p ng-show="para.csshow">最近超市：{{xqdetail.csmc}}，步行{{xqdetail.cssj}}分钟</p> 
+            </div>            
+            <div layout="row">
+                <p >小学：{{xqdetail.xxmc}}，初中：{{xqdetail.czmc}}</p> 
+            </div>
+        </div>
+        
+        <div id="mapcontent" style="padding:10px;width:800px;height:400px;border:#ccc solid 1px;">
+        </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

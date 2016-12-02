@@ -11,6 +11,13 @@ app.config(function($mdThemingProvider){
             'default':'800'
     })
         .accentPalette('orange');
+    
+    $mdThemingProvider.theme('altTheme')
+        .primaryPalette('grey',{
+            'default':'900'
+    })
+        .accentPalette('green');
+    
 });
 
 app.config(function($stateProvider,$urlRouterProvider,$locationProvider){
@@ -21,7 +28,7 @@ app.config(function($stateProvider,$urlRouterProvider,$locationProvider){
     $stateProvider        
         .state('app',{
             url:'/',
-            templateUrl:'views/loc.html',
+            templateUrl:'views/search.html',
             controller:'SearchController'               
         })
         .state('contact',{

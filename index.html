@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp" >
+<html lang="en"  >
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>智能搜房</title>
-        
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">       
+        <meta name="description" content="房哆啦 智能搜房 找房">
+        <meta name="keywords" content="房哆啦 智能搜索 找房">
+        <title>智能搜房</title>               
         
         <link rel="stylesheet" href="css/bootstrap.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +22,7 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body ng-cloak>
+    <body ng-cloak ng-app="myApp">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <div class="container-fluid">
             <div class="navbar-header">
@@ -34,7 +33,7 @@
                 <span class="icon-bar"></span>
               </button>              
               <a class="navbar-brand" ui-sref="app">
-                  <img class="logo" src="img/fangdora.png">
+                  <img class="logo" src="img/fangdora0.png">
               </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
@@ -45,17 +44,7 @@
             </div><!--/.navbar-collapse -->
           </div>
         </nav>
-        
-        <div class="container" ng-controller="SearchController">
-            <br>
-            <br>
-            <div ui-view></div>
-            <!--
-            <div ui-view="searchset"></div>
-            <div ui-view="searchresult"></div>
-            <div ui-view="card"></div> -->
-        </div>
-        
+        <div ui-view></div>        
         
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>        
         <script src="js/includes/bootstrap.min.js"></script>
@@ -65,10 +54,12 @@
         <script src="js/includes/angular-material.min.js"></script>
         <script src="js/includes/angular-animate.min.js"></script>
         <script src="js/includes/angular-aria.min.js"></script>     
-        <script src="js/includes/angular-ui-router.min.js"></script>        
+        <script src="js/includes/angular-ui-router.min.js"></script>    
+        <script type="text/javascript" src="http://api.map.baidu.com/api?key=SMz3ikjU8cD247C2CHMcYeW6QlyV0L9d&v=1.1&services=true"></script>
         <script src="js/main.js"></script>
         <script src="js/controller.js"></script>
         <script src="js/services.js"></script>
+        <script src="js/mapctrl.js"></script>
         
     </body>
 </html>

@@ -1,9 +1,12 @@
-<md-whiteframe class="md-whiteframe-6dp" layout="column" ng-cloak >
-    <md-content>
+<md-whiteframe id="result"  class="md-whiteframe-6dp" layout="column" ng-cloak >
+    <div layout="row" ng-show="wait" layout-sm="column" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-content ng-show="!wait">        
         <md-list flex="100">
             <md-subheader class="md-no-sticky">查询结果</md-subheader>
             <md-divider ng-if="!$last"></md-divider>
-            <md-list-item class="md-2-line" layout-padding ng-repeat="region in subRegions" ng-click="null">
+            <md-list-item class="md-2-line" layout-padding ng-repeat="region in subRegions" ng-click="showDetail(region)">
                 <img class="img-thumbnail"  ng-src="{{ '/img/xq_img/' + region.img}}" alt="">
                 <div flex="5"></div>
                 <div flex="60" class="md-list-item-text" layout="column">
@@ -26,8 +29,14 @@
                 </div>            
                 <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
-        </md-list>     
-        <ul uib-pagination boundary-links="true" total-items="totalItems" boundary-link-numbers="true" max-size="maxSize" num-pages="numPages" ng-model="currentPage" ng-change="pageChanged(currentPage)" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页" class="md-primary"></ul>   
-    </md-content>
-    
+            <div layout-padding ng-show="noResult">
+                <h4>亲，我已经很尽力了，但是没有找您要的结果，您看是不是改一下条件再试试？</h4>
+                <p>欢迎您通过“联系我们”向我们提意见！</p>
+            </div>            
+        </md-list> 
+        <div layout="row" layout-align="center center">
+            <ul uib-pagination boundary-links="true" total-items="pg.totalItems" boundary-link-numbers="true" max-size="pg.maxSize" num-pages="pg.numPages" ng-model="pg.currentPage" ng-change="pageChanged(pg.currentPage)" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页" class="md-primary"></ul>
+        </div>
+        
+    </md-content>        
 </md-whiteframe>
